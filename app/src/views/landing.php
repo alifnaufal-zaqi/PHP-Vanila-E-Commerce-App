@@ -43,9 +43,9 @@
                             <img src="<?= $product['product_image']; ?>" class="w-full h-full object-cover object-center" alt="">
                         </div>
                         <!-- Card Body -->
-                        <div class="p-4 flex flex-col grow">
+                        <div class="p-4 flex flex-col">
                             <h1 class="mb-2 font-bold text-lg"><?= $product['product_name']; ?></h1>
-                            <p class="mb-2"><?= $product['product_description']; ?></p>
+                            <p class="mb-2 grow"><?= $product['product_description']; ?></p>
                             <h5 class="font-bold text-xl">RP. <?= $product['products_price'] ?></h5>
                         </div>
                         <div class="p-4">
