@@ -1,0 +1,11 @@
+@import url("https://fonts.googleapis.com/css2?family=Abel&display=swap");
+@import "tailwindcss";
+
+@theme {
+  --font-abel: "Abel";
+  --color-darkB: #213448;
+  --color-skyB: #547792;
+  --color-lighSkyB: #547792;
+  --color-lightS: #ecefca;
+  --color-hero: #f4f1ed;
+}
