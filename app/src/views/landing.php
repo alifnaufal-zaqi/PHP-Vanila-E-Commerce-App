@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" class="scroll-smooth">
 
 <head>
     <meta charset="UTF-8">
@@ -13,17 +13,17 @@
 
     <main class="bg-hero">
         <!-- Hero Section -->
-        <section class="flex gap-10 px-24 py-16 items-center">
+        <section class="flex gap-10 px-24 py-16 items-center" id="heroSection">
             <div>
                 <h1 class="text-5xl font-bold mb-10 text-lighSkyB">What's E-Commerce</h1>
                 <p class="text-2xl mb-3">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Nobis, sapiente voluptatum expedita magni sint enim ex earum, non numquam mollitia dolores ipsa voluptates architecto id quaerat reprehenderit labore ea voluptate. Lorem ipsum dolor sit amet consectetur adipisicing elit. Fuga aut aliquid eos at voluptatum sed mollitia omnis? Veritatis cum dicta ducimus, dolorum enim minima nihil excepturi nostrum vero provident exercitationem.</p>
-                <button class="bg-lighSkyB text-white p-2 rounded-md font-semibold focus:outline-offset-2 focus:outline-2 focus:outline-lighSkyB active:bg-darkB cursor-pointer">Start Shooping</button>
+                <button class="bg-lighSkyB text-white p-2 rounded-md font-semibold focus:outline-offset-2 focus:outline-2 focus:outline-lighSkyB active:bg-darkB cursor-pointer" id="startShoopingBtn">Start Shooping</button>
             </div>
             <img src="/assets/img/hero.svg" alt="hero-img" class="max-w-[600px]">
         </section>
 
         <!-- About Section -->
-        <section class="flex gap-10 px-24 py-16 items-center">
+        <section class="flex gap-10 px-24 py-16 items-center" id="aboutSection">
             <img class="max-w-[600px]" src="/assets/img/shooping-cart.svg" alt="about-image">
             <div>
                 <h1 class="text-4xl font-bold mb-5">About E-Commerce</h1>
@@ -32,7 +32,7 @@
         </section>
 
         <!-- Previews Product Section -->
-        <section class="bg-skyB h-fit px-24 py-16">
+        <section class="bg-skyB h-fit px-24 py-16" id="previewProductsSection">
             <h3 class="text-center font-semibold text-3xl text-white mb-5">New Product</h3>
             <div class="grid grid-cols-3 gap-4">
                 <?php foreach ($products as $product) : ?>
@@ -49,7 +49,7 @@
                             <h5 class="font-bold text-xl">RP. <?= $product['products_price'] ?></h5>
                         </div>
                         <div class="p-4">
-                            <button class="bg-lighSkyB p-3 w-full rounded-md text-white font-semibold focus:outline-offset-2 focus:outline-2 focus:outline-lighSkyB active:bg-darkB cursor-pointer">Buy Now</button>
+                            <button class="bg-lighSkyB p-3 w-full rounded-md text-white font-semibold focus:outline-offset-2 focus:outline-2 focus:outline-lighSkyB active:bg-darkB cursor-pointer" name="buyBtn">Buy Now</button>
                         </div>
                     </div>
                 <?php endforeach; ?>
@@ -57,7 +57,7 @@
         </section>
 
         <!-- FAQ Section -->
-        <section class="px-24 py-32 ">
+        <section class="px-24 py-32" id="faqSection">
             <h1 class="text-center font-bold mb-3 text-3xl">FAQ</h1>
             <div class="rounded-md mb-3 p-5 grid grid-cols-2 gap-4">
                 <?php foreach($faq as $f) : ?>
@@ -73,7 +73,7 @@
 
     <?php include(__DIR__ . '/components/footer.php'); ?>
 
-    <script src="/js/index.js"></script>
+    <script type="module" src="/js/index.js"></script>
 </body>
 
 </html>

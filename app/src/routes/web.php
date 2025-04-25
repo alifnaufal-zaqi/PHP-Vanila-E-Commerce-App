@@ -15,10 +15,18 @@ switch($path){
         $landingController->index();
         break;
     case '/auth/register':
-        $userController->register();
+        if($_SERVER['REQUEST_METHOD'] === 'POST'){
+            $userController->storeUser();
+        }else{
+            $userController->register();
+        }
         break;
     case '/auth/login':
-        $userController->login();
+        if($_SERVER['REQUEST_METHOD'] === 'POST'){
+            $userController->verifyUserCredential();
+        }else{
+            $userController->login();
+        }
         break;
 }
 

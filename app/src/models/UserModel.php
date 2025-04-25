@@ -20,9 +20,10 @@ class UserModel{
     }
 
     public function addUser($username, $email, $password){
-        $sql = "INSERT INTO users (username, email, password, role) VALUES (:username, :email, :password, :role)";
+        $sql = "INSERT INTO users (id_user, username, email, password, role) VALUES (:id_user, :username, :email, :password, :role)";
         $stmt = $this->conn->prepare($sql);
         $stmt->execute([
+            ':id_user' => uniqid('user-'),
             ':username' => $username,
             ':email' => $email,
             ':password' => $password,
