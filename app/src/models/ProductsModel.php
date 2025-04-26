@@ -16,6 +16,14 @@ class ProductsModel{
 
         return $stmt->fetchAll();
     }
+
+    public function getAllProducts(){
+        $sql = "SELECT products.id_product, categorys.category_name, products.product_name, products.product_description, products.products_price, products.products_stock, products.product_image FROM products JOIN categorys ON products.product_category = categorys.id_category";
+        $stmt = $this->conn->prepare($sql);
+        $stmt->execute();
+
+        return $stmt->fetchAll();
+    }
 }
 
 

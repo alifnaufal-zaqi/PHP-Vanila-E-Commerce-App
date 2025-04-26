@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>E-Commerce App Using PHP</title>
+    <title>Auth Register | E-Commerce App Using PHP</title>
     <link rel="stylesheet" href="/styles/output.css">
 </head>
 
