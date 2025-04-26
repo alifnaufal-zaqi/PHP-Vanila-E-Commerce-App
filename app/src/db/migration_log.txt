@@ -1,3 +1,6 @@
 001_create_table_categorys.sql
 002_create_table_products.sql
 003_create_table_users.sql
+
+004_create_table_user_profile.sql
+005_create_trigger_insert_user_profile.sql
