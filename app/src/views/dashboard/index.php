@@ -44,7 +44,7 @@
                             <!-- Card Body -->
                              <div>
                                 <h1 class="text-2xl mb-5 font-bold">Total Transactions</h1>
-                                <p class="text-2xl font-semibold">10</p>
+                                <p class="text-2xl font-semibold"><?= $transactionCount['transaction_count'] ?></p>
                              </div>
                         </div>
                         <div class="shadow-md p-8 rounded-md bg-skyB text-center">

@@ -3,6 +3,8 @@
 namespace App\controllers;
 use App\models\CategorysModel;
 use App\models\ProductsModel;
+use App\models\TransactionItemsModel;
+use App\models\TransactionsModel;
 use App\models\UserModel;
 use PDO;
 
@@ -10,16 +12,21 @@ class DashboardController{
     protected $productModel;
     protected $userModel;
     protected $categoryModel;
+    protected $transactionModel;
+    protected $transactionItemModel;
 
     public function __construct(PDO $pdo){
         $this->productModel = new ProductsModel($pdo);
         $this->userModel = new UserModel($pdo);
         $this->categoryModel = new CategorysModel($pdo);
+        $this->transactionModel = new TransactionsModel($pdo);
+        $this->transactionItemModel = new TransactionItemsModel($pdo);
     }
 
     public function index(){
         $productCount = $this->productModel->getProductCount();
         $userCount = $this->userModel->getUserCount();
+        $transactionCount = $this->transactionModel->getTransactionCount();
         include(__DIR__ . '/../views/dashboard/index.php');
     }
 
@@ -160,8 +167,32 @@ class DashboardController{
         header('Location: /dashboard/products');
         exit;
     }
+
+    public function transactions(){
+        $limit = 5;
+        $page = isset($_GET['page']) ? $_GET['page'] : 1;
+        $offset = ($page - 1) * $limit;
+        
+        $transactions = $this->transactionModel->getAllTransactions($limit, $offset);
+        $totalTransactions = $this->transactionModel->transactionCount();
+
+        $totalPage = ceil($totalTransactions / $limit);
+        
+        include(__DIR__ . '/../views/dashboard/transactions/index.php');
+    }
+
+    public function detailTransaction($idTransaction){
+        $limit = 4;
+        $page = isset($_GET['page']) ? $_GET['page'] : 1;
+        $offset = ($page - 1) * $limit;
+
+        $totalTransactionItems = $this->transactionItemModel->transactionItemCount();
+        $transactionItems = $this->transactionItemModel->getPurchasedProductsByTransactionId($idTransaction, $limit, $offset);
+        $transaction = $this->transactionModel->getTransactionById($idTransaction);
+
+        $totalPage = ceil($totalTransactionItems / $limit);
+
+        include(__DIR__ . '/../views/dashboard/transactions/detail.php');
+    }
 }
-
-
-
 ?>

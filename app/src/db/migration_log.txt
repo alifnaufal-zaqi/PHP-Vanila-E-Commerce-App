@@ -4,3 +4,5 @@
 
 004_create_table_user_profile.sql
 005_create_trigger_insert_user_profile.sql
+006_create_table_transactions.sql
+007_create_table_transaction_items.sql

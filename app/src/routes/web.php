@@ -66,6 +66,13 @@ switch($path){
             $dashboardController->updateProduct($idProduct);
         }
         break;
+    case '/dashboard/transactions':
+        $dashboardController->transactions();
+        break;
+    case (preg_match('/\/dashboard\/transactions\/([a-zA-Z0-9\-]+)/', $path, $matches) ? true : false):
+        $idTransaction = $matches[1];
+        $dashboardController->detailTransaction($idTransaction);
+        break;
 }
 
 ?>
