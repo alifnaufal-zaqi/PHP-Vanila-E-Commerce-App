@@ -39,5 +39,13 @@ class UserModel{
 
         return $stmt->fetch();
     }
+
+    public function getUserCount(){
+        $sql = "SELECT COUNT(*) AS user_count FROM users";
+        $stmt = $this->conn->prepare($sql);
+        $stmt->execute();
+
+        return $stmt->fetch();
+    }
 }
 ?>

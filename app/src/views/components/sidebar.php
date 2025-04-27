@@ -2,10 +2,10 @@
     <div>
         <h1 class="text-3xl font-bold mb-10">Dashboard Admin</h1>
         <ul class="flex flex-col gap-5 text-xl">
-            <li><a href="">Dashboard</a></li>
-            <li><a href="">Products</a></li>
-            <li><a href="">Transactions</a></li>
-            <li><a href="">Users</a></li>
+            <li><a href="/dashboard">Dashboard</a></li>
+            <li><a href="/dashboard/products">Products</a></li>
+            <li><a href="/dashboard/transactions">Transactions</a></li>
+            <li><a href="/dashboard/users">Users</a></li>
             <li>
                 <form action="" method="POST">
                     <input type="hidden" name="logout">

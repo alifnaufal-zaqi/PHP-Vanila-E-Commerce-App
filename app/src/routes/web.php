@@ -32,6 +32,40 @@ switch($path){
         break;
     case '/dashboard':
         $dashboardController->index();
+        break;
+    case '/dashboard/products':
+        $keyword = $_GET['keyword'] ?? null;
+        if($keyword){
+            $dashboardController->searchingProduct($keyword);
+        }else{
+            $dashboardController->products();
+        }
+        break;
+    case '/dashboard/products/create':
+        if($_SERVER['REQUEST_METHOD'] === 'POST'){
+            $dashboardController->saveProduct();
+        }else{
+            $dashboardController->createProduct();
+        }
+        break;
+    case (preg_match('/\/dashboard\/products\/delete\/([a-zA-Z0-9\-]+)/', $path, $matches) ? true : false):
+        if($_SERVER['REQUEST_METHOD'] === 'POST'){
+            $idProduct = $matches[1];
+            $dashboardController->deleteProduct($idProduct);
+        }else{
+            header('Location: /dashboard/products');
+            exit;
+        }
+        break;
+    case (preg_match('/\/dashboard\/products\/update\/([a-zA-Z0-9\-]+)/', $path, $matches) ? true : false):
+        $idProduct = $matches[1];
+
+        if($_SERVER['REQUEST_METHOD'] === 'POST'){
+            // Update Product Database
+        }else{
+            $dashboardController->updateProduct($idProduct);
+        }
+        break;
 }
 
 ?>

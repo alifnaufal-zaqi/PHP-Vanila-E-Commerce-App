@@ -1,4 +1,4 @@
-<header id="nav" class="sticky top-0 px-4 py-6 bg-skyB text-white font-abel text-xl w-full">
+<header id="nav" class="sticky top-0 px-4 py-6 bg-lighSkyB text-white font-abel text-xl w-full">
     <nav class="px-10 flex justify-between items-center">
         <h1 class="text-3xl font-bold opacity-100">E-Commerce</h1>
         <button class="md:hidden text-2xl block border-1 rounded-md px-2 py-1 border-white" id="hamberg">☰</button>
