@@ -85,6 +85,65 @@ class DashboardController{
         include(__DIR__ . '/../views/dashboard/products/update.php');
     }
 
+    public function modifyProduct($idProduct){
+        $productName = $_POST['product-name'];
+        $productCategory = (int)$_POST['product-category'];
+        $productDescription = $_POST['product-description'];
+        $productPrice = (int)$_POST['product-price'];
+        $productStock = (int)$_POST['product-stock'];
+
+        $product = $this->productModel->getProductById($idProduct);
+
+        if($product){
+            $savePath = $product['product_image'];
+
+            if(!empty($_FILES['product-image']['name'])){
+                $productTmpPath = $_FILES['product-image']['tmp_name'];
+                $productImage = $_FILES['product-image']['name'];
+
+                $oldPath = __DIR__ . '/../../public' . $product['product_image'];
+    
+                if(file_exists($oldPath)){
+                    unlink($oldPath);
+                }
+
+                // Get Extensions File
+                $extension = pathinfo($productImage, PATHINFO_EXTENSION);
+    
+                // Create New Filename With Unique Name
+                $newFileName = 'product-' . time() . '-' . rand(1000,9999) . '.' . $extension;
+    
+                // Path Destination Uploads
+                $uploadDir = __DIR__ . '/../../public/assets/uploads/';
+                $destinationPath = $uploadDir . $newFileName;
+
+                if(move_uploaded_file($productTmpPath, $destinationPath)){
+                    // Path Image To Save On Database
+                    $savePath = "/assets/uploads/$newFileName";
+                }else{
+                    $_SESSION['error_update_product'] = 'Failed to upload image';
+                    header("Location: /dashboard/products/update/" . $product['product-image']);
+                    exit;
+                }
+            }
+
+            $this->productModel->updateProductById(
+                $idProduct,
+                 $productName,
+                  $productCategory, 
+                  $productDescription, 
+                  $productPrice, 
+                  $productStock, 
+                  $savePath
+            );
+
+            $_SESSION['success_update_product'] = 'Success Update Product';
+
+            header('Location: /dashboard/products');
+            exit;
+        }
+    }
+
     public function deleteProduct($idProduct){
         $selectedProduct = $this->productModel->getProductById($idProduct);
 

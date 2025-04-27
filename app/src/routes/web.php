@@ -61,7 +61,7 @@ switch($path){
         $idProduct = $matches[1];
 
         if($_SERVER['REQUEST_METHOD'] === 'POST'){
-            // Update Product Database
+            $dashboardController->modifyProduct($idProduct);
         }else{
             $dashboardController->updateProduct($idProduct);
         }

@@ -32,7 +32,7 @@
                         <input type="password" name="password" class="p-2 border-2 rounded-md focus:outline-2 focus:outline-offset-2 focus:outline-blue-500">
                     </div>
                     <div class="mb-5">
-                        <input type="checkbox" name="show-password" id="showPassword" class="mr-2 scale-150">
+                        <input type="checkbox" name="show-password" id="showPassword" class="mr-2 scale-150 hover:cursor-pointer">
                         <label for="show-password">Show Password</label>
                     </div>
                     <div class="mb-10 flex flex-col">
