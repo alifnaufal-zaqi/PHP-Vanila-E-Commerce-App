@@ -1,103 +1,106 @@
 <?php 
 namespace App\models;
 use PDO;
+use App\core\Model;
 
-class ProductsModel{
-    protected $conn;
-
+class ProductsModel extends Model{
     public function __construct(PDO $pdo){
-        $this->conn = $pdo;
+        parent::__construct($pdo);
     }
 
     public function createProduct($productName, $porductCategory, $productDescription, $productPrice, $productStock, $productImage){
-        $sql = "INSERT INTO products VALUES (:idProduct, :productCategory, :productName, :productDescription, :productPrice, :productStock, :productImage)";
-        $stmt = $this->conn->prepare($sql);
-        $stmt->execute([
-            ':idProduct' => uniqid('product-'),
-            ':productCategory' => $porductCategory,
-            ':productName' => $productName,
-            ':productDescription' => $productDescription,
-            ':productPrice' => $productPrice,
-            ':productStock' => $productStock,
-            ':productImage' => $productImage,
-        ]);
+        $this->builder
+            ->insert('products', [
+                'id_product' => uniqid('product-'),
+                'product_category' => $porductCategory,
+                'product_name' => $productName,
+                'product_description' => $productDescription,
+                'products_price' => $productPrice,
+                'products_stock' => $productStock,
+                'product_image' => $productImage,
+            ])
+            ->execute();
     }
 
     public function getProductById($idProduct){
-        $sql = "SELECT * FROM products WHERE id_product = :idProduct";
-        $stmt = $this->conn->prepare($sql);
-        $stmt->execute([
-            ':idProduct' => $idProduct,
-        ]);
+        $data = $this->builder
+                    ->select()
+                    ->from('products')
+                    ->where('id_product = ?')
+                    ->find([$idProduct]);
 
-        return $stmt->fetch(PDO::FETCH_ASSOC);
+        return $data;
     }
     
     public function getNewProducts(){
-        $sql = 'SELECT products.id_product, categorys.category_name, products.product_name, products.product_description, products.products_price, products.products_stock, products.product_image FROM products JOIN categorys ON products.product_category = categorys.id_category ORDER BY products.created_at DESC LIMIT 3';
-        $stmt = $this->conn->prepare($sql);
-        $stmt->execute();
+        $data = $this->builder
+                    ->select('products.id_product, categorys.category_name, products.product_name, products.product_description, products.products_price, products.products_stock, products.product_image')
+                    ->from('products')
+                    ->join('categorys', 'products.product_category = categorys.id_category')
+                    ->orderBy('products.created_at', 'DESC')
+                    ->limit(3)
+                    ->findAll();
 
-        return $stmt->fetchAll(PDO::FETCH_ASSOC);
+        return $data;
     }
 
     public function getAllProducts($limit, $offset){
-        $sql = "SELECT products.id_product, categorys.category_name, products.product_name, products.product_description, products.products_price, products.products_stock, products.product_image FROM products JOIN categorys ON products.product_category = categorys.id_category LIMIT :limit OFFSET :offset";
-        $stmt = $this->conn->prepare($sql);
-        $stmt->execute([
-            ':limit' => $limit,
-            ':offset' => $offset,
-        ]);
-
-        return $stmt->fetchAll(PDO::FETCH_ASSOC);
+        $data = $this->builder
+                    ->select('products.id_product, categorys.category_name, products.product_name, products.product_description, products.products_price, products.products_stock, products.product_image')
+                    ->from('products')
+                    ->join('categorys', 'products.product_category = categorys.id_category')
+                    ->limit($limit)
+                    ->offset($offset)
+                    ->findAll();
+        
+        return $data;
     }
 
     public function updateProductById($idProduct, $productName, $porductCategory, $productDescription, $productPrice, $productStock, $productImage){
-        $sql = "UPDATE products SET product_name = :productName, product_category = :productCategory, product_description = :productDescription, products_price = :productPrice, products_stock = :productStock, product_image = :productImage WHERE id_product = :idProduct";
-        $stmt = $this->conn->prepare($sql);
-        $stmt->execute([
-            ':productName' => $productName,
-            ':productCategory' => $porductCategory,
-            ':productDescription' => $productDescription,
-            ':productPrice' => $productPrice,
-            ':productStock' => $productStock,
-            ':productImage' => $productImage,
-            ':idProduct' => $idProduct,
-        ]);
+        $this->builder
+            ->update('products', [
+                'product_name' => $productName,
+                'product_category' => $porductCategory,
+                'product_description' => $productDescription,
+                'products_price' => $productPrice,
+                'products_stock' => $productStock,
+                'product_image' => $productImage,
+            ], ['id_product' => $idProduct])
+            ->execute();
     }
 
     public function deleteProductById($idProduct){
-        $sql = "DELETE FROM products WHERE id_product = :idProduct";
-        $stmt = $this->conn->prepare($sql);
-        $stmt->execute([
-            ':idProduct' => $idProduct,
-        ]);
+        $this->builder
+            ->delete('products', [
+                'id_product' => $idProduct,
+            ])
+            ->execute();
     }
 
     public function getProductCount(){
-        $sql = "SELECT COUNT(*) AS product_count FROM products";
-        $stmt = $this->conn->prepare($sql);
-        $stmt->execute();
+        $data = $this->builder
+                    ->querys('SELECT COUNT(*) AS product_count FROM products')
+                    ->find();
 
-        return $stmt->fetch(PDO::FETCH_ASSOC);
+        return $data;
     }
 
     public function countProduct(){
-        $sql = "SELECT COUNT(*) FROM products";
-        $stmt = $this->conn->prepare($sql);
-        $stmt->execute();
+        $data = $this->builder
+                    ->querys('SELECT COUNT(*) FROM products')
+                    ->findColumn();
 
-        return $stmt->fetchColumn();
+        return $data;
     }
 
     public function searchProduct($keyword){
-        $sql = "SELECT products.id_product, categorys.category_name, products.product_name, products.product_description, products.products_price, products.products_stock, products.product_image FROM products JOIN categorys ON products.product_category = categorys.id_category WHERE products.product_name LIKE :keyword";
-        $stmt = $this->conn->prepare($sql);
-        $stmt->execute([
-            ':keyword' => "%$keyword%",
-        ]);
+        $product = $this->builder
+                        ->select('products.id_product, categorys.category_name, products.product_name, products.product_description, products.products_price, products.products_stock, products.product_image')
+                        ->from('products')
+                        ->join('categorys', 'products.product_category = categorys.id_category')
+                        ->like('products.product_name', $keyword);
 
-        return $stmt->fetchAll(PDO::FETCH_ASSOC);
+        return $product;
     }
 }
 

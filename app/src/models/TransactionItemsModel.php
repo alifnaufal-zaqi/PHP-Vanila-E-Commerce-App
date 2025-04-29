@@ -1,6 +1,7 @@
 <?php 
 namespace App\models;
 use PDO;
+use App\core\Model;
 
 class TransactionItemsModel{
     protected $conn;

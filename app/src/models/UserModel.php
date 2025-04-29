@@ -1,51 +1,51 @@
 <?php
 namespace App\models;
-
+use App\core\Model;
 use PDO;
 
-class UserModel{
-    protected $conn;
-
+class UserModel extends Model{
     public function __construct(PDO $pdo){
-        $this->conn = $pdo;
+        parent::__construct($pdo);
     }
 
     public function checkExistUsername($username){
-        $sql = 'SELECT username FROM users WHERE username = :username';
-        $stmt = $this->conn->prepare($sql);
-        $stmt->bindParam(':username', $username);
-        $stmt->execute();
+        $data = $this->builder
+                    ->select('username')
+                    ->from('users')
+                    ->where('username = ?', [$username])
+                    ->execute();
 
-        return $stmt->fetch();
+        return $data;
     }
 
     public function addUser($username, $email, $password){
-        $sql = "INSERT INTO users (id_user, username, email, password, role) VALUES (:id_user, :username, :email, :password, :role)";
-        $stmt = $this->conn->prepare($sql);
-        $stmt->execute([
-            ':id_user' => uniqid('user-'),
-            ':username' => $username,
-            ':email' => $email,
-            ':password' => $password,
-            ':role' => 'USER',
-        ]);
+        $this->builder
+            ->insert('users', [
+                'id_user' => uniqid('user-'),
+                'username' => $username,
+                'email' => $email,
+                'password' => $password,
+                'role' => 'USER',
+            ])
+            ->execute();
     }
 
     public function getUserByEmail($email){
-        $sql = "SELECT * FROM users WHERE email = :email";
-        $stmt = $this->conn->prepare($sql);
-        $stmt->bindParam(':email', $email);
-        $stmt->execute();
+        $user = $this->builder
+                    ->select()
+                    ->from('users')
+                    ->where('email = ?', [$email])
+                    ->find();
 
-        return $stmt->fetch();
+        return $user;
     }
 
     public function getUserCount(){
-        $sql = "SELECT COUNT(*) AS user_count FROM users";
-        $stmt = $this->conn->prepare($sql);
-        $stmt->execute();
+        $userCount = $this->builder
+                        ->querys('SELECT COUNT(*) AS user_count FROM users')
+                        ->find();
 
-        return $stmt->fetch();
+        return $userCount;
     }
 }
 ?>

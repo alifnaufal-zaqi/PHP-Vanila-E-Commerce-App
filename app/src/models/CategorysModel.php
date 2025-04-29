@@ -1,20 +1,20 @@
 <?php 
 namespace App\models;
+use App\core\Model;
 use PDO;
 
-class CategorysModel{
-    protected $conn;
-
+class CategorysModel extends Model{
     public function __construct(PDO $pdo){
-        $this->conn = $pdo;
+        parent::__construct($pdo);
     }
 
     public function getAllCategorys(){
-        $sql = "SELECT * FROM categorys";
-        $stmt = $this->conn->prepare($sql);
-        $stmt->execute();
+        $data = $this->builder
+                    ->select() 
+                    ->from('categorys')
+                    ->findAll();
 
-        return $stmt->fetchAll();
+        return $data;
     }
 }
 
