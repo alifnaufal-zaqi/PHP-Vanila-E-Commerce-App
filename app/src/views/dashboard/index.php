@@ -1,3 +1,11 @@
+<?php 
+require(__DIR__ . '/../../middleware/authMiddleware.php');
+require(__DIR__ . '/../../middleware/checkRole.php');
+
+authMiddleware();
+checkRole();
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 

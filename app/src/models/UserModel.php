@@ -47,5 +47,36 @@ class UserModel extends Model{
 
         return $userCount;
     }
+
+    public function getUsersInfo($limit, $offset){
+        $users = $this->builder
+                    ->select('users.id_user, users.username, users.email, user_profiles.address, user_profiles.gender')
+                    ->from('users')
+                    ->join('user_profiles', 'users.id_user = user_profiles.id_user')
+                    ->limit($limit)
+                    ->offset($offset)
+                    ->findAll();
+
+        return $users;
+    }
+
+    public function countUser(){
+        $data = $this->builder
+                    ->querys('SELECT COUNT(*) AS user_count FROM users')
+                    ->findColumn();
+
+        return $data;
+    }
+
+    public function getUserById($idUser){
+        $user = $this->builder
+                    ->select('users.username, users.email, user_profiles.address, user_profiles.gender, user_profiles.profile_picture')
+                    ->from('users')
+                    ->join('user_profiles', 'users.id_user = user_profiles.id_user')
+                    ->where('users.id_user = ?', [$idUser])
+                    ->find();
+
+        return $user;
+    }
 }
 ?>

@@ -1,0 +1,42 @@
+@font-face {
+  font-family: "bootstrap-icons";
+  src: url("/assets/fonts/bootstrap-icons.woff2") format("woff2"),
+    url("/assets/fonts/bootstrap-icons.woff") format("woff");
+  font-weight: normal;
+  font-style: normal;
+}
+
+.bi::before {
+  display: inline-block;
+  font-family: "bootstrap-icons" !important;
+  font-style: normal;
+  font-weight: normal !important;
+  font-variant: normal;
+  text-transform: none;
+  line-height: 1;
+  content: var(--bs-icon);
+}
+
+.bi-search::before {
+  --bs-icon: "\f52a";
+}
+
+.bi-plus-circle-fill::before {
+  --bs-icon: "\f4f9";
+}
+
+.bi-pencil-fill::before {
+  --bs-icon: "\f4c9";
+}
+
+.bi-trash-fill::before {
+  --bs-icon: "\f5dd";
+}
+
+.bi-wallet::before {
+  --bs-icon: "\f614";
+}
+
+.bi-person-circle::before {
+  --bs-icon: "\f4d7";
+}

@@ -73,6 +73,13 @@ switch($path){
         $idTransaction = $matches[1];
         $dashboardController->detailTransaction($idTransaction);
         break;
+    case '/dashboard/users':
+        $dashboardController->users();
+        break;
+    case (preg_match('/\/dashboard\/users\/([a-zA-Z0-9\-]+)/', $path, $matches) ? true : false):
+        $idUser = $matches[1];
+        $dashboardController->userDetail($idUser);
+        break;
 }
 
 ?>

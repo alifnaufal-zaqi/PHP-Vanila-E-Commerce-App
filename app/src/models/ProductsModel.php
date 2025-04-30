@@ -94,13 +94,14 @@ class ProductsModel extends Model{
     }
 
     public function searchProduct($keyword){
-        $product = $this->builder
+        $products = $this->builder
                         ->select('products.id_product, categorys.category_name, products.product_name, products.product_description, products.products_price, products.products_stock, products.product_image')
                         ->from('products')
                         ->join('categorys', 'products.product_category = categorys.id_category')
-                        ->like('products.product_name', $keyword);
+                        ->like('products.product_name', $keyword)
+                        ->findAll();
 
-        return $product;
+        return $products;
     }
 }
 

@@ -1,3 +1,11 @@
+<?php 
+require(__DIR__ . '/../../../middleware/authMiddleware.php');
+require(__DIR__ . '/../../../middleware/checkRole.php');
+
+authMiddleware();
+checkRole();
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -5,6 +13,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Dashboard | E-Commerce App Using PHP</title>
+    <link rel="stylesheet" href="/assets/css/bootstrap-icons.css">
     <link rel="stylesheet" href="/styles/output.css">
 </head>
 
@@ -24,10 +33,10 @@
             <section class="px-6 py-8">
                 <h1 class="text-3xl font-bold mb-3">Products Data</h1>
                 <div class="flex justify-between">
-                    <a class="bg-skyB p-2 rounded-md font-semibold hover:bg-transparent border-2 border-skyB transition-all duration-150" href="/dashboard/products/create">Add Product</a>
+                    <a class="bg-skyB p-2 rounded-md font-semibold hover:bg-transparent border-2 border-skyB transition-all duration-150" href="/dashboard/products/create">Add Product <i class="bi bi-plus-circle-fill"></i></a>
                     <form action="/dashboard/products" method="GET" class="w-1/4 flex justify-end gap-2">
                         <input type="text" class="p-2 border-2 rounded-md w-full" name="keyword" placeholder="Search Product">
-                        <button class="bg-lighSkyB p-2 rounded-md text-white cursor-pointer" type="submit">Search</button>
+                        <button class="bg-lighSkyB p-2 rounded-md text-white cursor-pointer" type="submit"><i class="bi bi-search"></i></button>
                     </form>
                 </div>
                 <table class="min-w-full mt-4 bg-white border border-gray-300">
@@ -58,9 +67,9 @@
                                 <td class="py-3 px-6"><?= $product['products_stock'] ?></td>
                                 <td class="py-3 px-6">
                                     <div class="flex gap-4">
-                                        <a class="bg-yellow-500 text-black p-1 rounded-md border-2 border-yellow-500 hover:bg-transparent transition-all duration-150" href="/dashboard/products/update/<?= $product['id_product'] ?>">Update</a>
+                                        <a class="bg-yellow-500 text-black py-1 px-2 rounded-md border-2 border-yellow-500 hover:bg-transparent transition-all duration-150" href="/dashboard/products/update/<?= $product['id_product'] ?>"><i class="bi bi-pencil-fill"></i></a>
                                         <form action="/dashboard/products/delete/<?= $product['id_product']; ?>" method="POST" id="deleteProduct">
-                                            <button class="bg-red-500 text-white p-1 rounded-md border-2 border-red-500 hover:bg-transparent hover:text-black transition-all duration-150" type="submit">Delete</button>
+                                            <button class="bg-red-500 text-white py-1 px-2 rounded-md border-2 border-red-500 hover:bg-transparent hover:text-black transition-all duration-150" type="submit"><i class="bi bi-trash-fill"></i></button>
                                         </form>
                                     </div>
                                 </td>

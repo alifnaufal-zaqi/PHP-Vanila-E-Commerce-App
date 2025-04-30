@@ -194,5 +194,24 @@ class DashboardController{
 
         include(__DIR__ . '/../views/dashboard/transactions/detail.php');
     }
+
+    public function users(){
+        $limit = 5;
+        $page = isset($_GET['page']) ? (int)$_GET['page'] : 1;
+        $offset = ($page - 1) * $limit;
+
+        $users = $this->userModel->getUsersInfo($limit, $offset);
+        $totalUser = $this->userModel->countUser();
+
+        $totalPage = ceil($totalUser / $limit);
+
+        include(__DIR__ . '/../views/dashboard/users/index.php');
+    }
+
+    public function userDetail($idUser){
+        $user = $this->userModel->getUserById($idUser);
+
+        include(__DIR__ . '/../views/dashboard/users/detail.php');
+    }
 }
 ?>
