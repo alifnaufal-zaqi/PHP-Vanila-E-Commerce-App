@@ -30,6 +30,17 @@ class UserModel extends Model{
             ->execute();
     }
 
+    public function getUserLogged($idUser){
+        $user = $this->builder
+                    ->select('users.username, users.email, user_profiles.address, user_profiles.gender, user_profiles.profile_picture')
+                    ->from('users')
+                    ->join('user_profiles', 'users.id_user = user_profiles.id_user')
+                    ->where('user_profiles.id_user = ?', [$idUser])
+                    ->find();
+
+        return $user;
+    }
+
     public function getUserByEmail($email){
         $user = $this->builder
                     ->select()

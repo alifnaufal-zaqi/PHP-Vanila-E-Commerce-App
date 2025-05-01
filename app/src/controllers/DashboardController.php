@@ -24,13 +24,19 @@ class DashboardController{
     }
 
     public function index(){
+        session_start();
         $productCount = $this->productModel->getProductCount();
         $userCount = $this->userModel->getUserCount();
         $transactionCount = $this->transactionModel->getTransactionCount();
+        $idUser = $_SESSION['user']['id_user'];
+        $user = $this->userModel->getUserLogged($idUser);
+        $renevue = $this->transactionModel->getRenevue();
         include(__DIR__ . '/../views/dashboard/index.php');
     }
 
     public function products(){
+        session_start();
+
         $limit = 3;
         $page = isset($_GET['page']) ? (int)$_GET['page'] : 1;
         $offset = ($page - 1) * $limit;
@@ -40,16 +46,27 @@ class DashboardController{
 
         $totalPage = ceil($totalProducts / $limit);
 
+        $idUser = $_SESSION['user']['id_user'];
+        $user = $this->userModel->getUserLogged($idUser);
+
         include(__DIR__ . '/../views/dashboard/products/index.php');
     }
 
     public function searchingProduct($keyword){
+        session_start();
+
         $products = $this->productModel->searchProduct($keyword);
+        $idUser = $_SESSION['user']['id_user'];
+        $user = $this->userModel->getUserLogged($idUser);
         include(__DIR__ . '/../views/dashboard/products/index.php');
     }
 
     public function createProduct(){
+        session_start();
         $categorys = $this->categoryModel->getAllCategorys();
+
+        $idUser = $_SESSION['user']['id_user'];
+        $user = $this->userModel->getUserLogged($idUser);
         include(__DIR__ . '/../views/dashboard/products/create.php');
     }
 
@@ -87,8 +104,13 @@ class DashboardController{
     }
 
     public function updateProduct($idProduct){
+        session_start();
+
         $product = $this->productModel->getProductById($idProduct);
         $categorys = $this->categoryModel->getAllCategorys();
+
+        $idUser = $_SESSION['user']['id_user'];
+        $user = $this->userModel->getUserLogged($idUser);
         include(__DIR__ . '/../views/dashboard/products/update.php');
     }
 
@@ -169,6 +191,8 @@ class DashboardController{
     }
 
     public function transactions(){
+        session_start();
+
         $limit = 5;
         $page = isset($_GET['page']) ? $_GET['page'] : 1;
         $offset = ($page - 1) * $limit;
@@ -177,11 +201,16 @@ class DashboardController{
         $totalTransactions = $this->transactionModel->transactionCount();
 
         $totalPage = ceil($totalTransactions / $limit);
+
+        $idUser = $_SESSION['user']['id_user'];
+        $user = $this->userModel->getUserLogged($idUser);
         
         include(__DIR__ . '/../views/dashboard/transactions/index.php');
     }
 
     public function detailTransaction($idTransaction){
+        session_start();
+
         $limit = 4;
         $page = isset($_GET['page']) ? $_GET['page'] : 1;
         $offset = ($page - 1) * $limit;
@@ -192,10 +221,15 @@ class DashboardController{
 
         $totalPage = ceil($totalTransactionItems / $limit);
 
+        $idUser = $_SESSION['user']['id_user'];
+        $user = $this->userModel->getUserLogged($idUser);
+
         include(__DIR__ . '/../views/dashboard/transactions/detail.php');
     }
 
     public function users(){
+        session_start();
+
         $limit = 5;
         $page = isset($_GET['page']) ? (int)$_GET['page'] : 1;
         $offset = ($page - 1) * $limit;
@@ -205,13 +239,30 @@ class DashboardController{
 
         $totalPage = ceil($totalUser / $limit);
 
+        $idUser = $_SESSION['user']['id_user'];
+        $user = $this->userModel->getUserLogged($idUser);
+
         include(__DIR__ . '/../views/dashboard/users/index.php');
     }
 
     public function userDetail($idUser){
-        $user = $this->userModel->getUserById($idUser);
+        session_start();
+
+        $userD = $this->userModel->getUserById($idUser);
+
+        $idUser = $_SESSION['user']['id_user'];
+        $user = $this->userModel->getUserLogged($idUser);
 
         include(__DIR__ . '/../views/dashboard/users/detail.php');
+    }
+
+    public function logout(){
+        session_start();
+        session_unset();
+        session_destroy();
+
+        header('Location: /auth/login');
+        exit;
     }
 }
 ?>

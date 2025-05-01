@@ -23,13 +23,7 @@ checkRole();
             <?php include(__DIR__ . '/../../components/sidebar.php'); ?>
         </section>
         <section class="grow h-full">
-            <nav class="bg-white shadow-md px-16 py-4 flex justify-between items-center">
-                <h1 class="text-xl font-bold">Dashboard</h1>
-                <div class="flex gap-5 items-center">
-                    <p class="text-lg font-semibold">John Doe</p>
-                    <img class="w-14" src="/assets/img/male-avatar.svg" alt="">
-                </div>
-            </nav>
+            <?php include(__DIR__ . '/../../components/dashboard_nav.php') ?>
             <section class="px-6 py-8">
                 <h1 class="text-3xl font-bold mb-3">Users Data</h1>
                 <div class="flex justify-between">
@@ -51,16 +45,16 @@ checkRole();
                     </thead>
                     <tbody class="text-gray-600 text-sm font-light">
                         <?php $i = 1; ?>
-                        <?php foreach ($users as $user) : ?>
+                        <?php foreach ($users as $u) : ?>
                             <tr class="border-b border-gray-300 hover:bg-gray-100">
                                 <td class="py-3 px-6"><?= $i++ ?></td>
-                                <td class="py-3 px-6"><?= $user['username'] ?></td>
-                                <td class="py-3 px-6"><?= $user['email'] ?></td>
-                                <td class="py-3 px-6 <?= empty($user['address']) ? "italic" : ""; ?>"><?= empty($user['address']) ? 'Empty' : $user['address']; ?></td>
-                                <td class="py-3 px-6 <?= empty($user['gender']) ? "italic" : ""; ?>"><?= empty($user['gender']) ? 'Empty' : $user['gender']; ?></td>
+                                <td class="py-3 px-6"><?= $u['username'] ?></td>
+                                <td class="py-3 px-6"><?= $u['email'] ?></td>
+                                <td class="py-3 px-6 <?= empty($u['address']) ? "italic" : ""; ?>"><?= empty($u['address']) ? 'Empty' : $u['address']; ?></td>
+                                <td class="py-3 px-6 <?= empty($u['gender']) ? "italic" : ""; ?>"><?= empty($u['gender']) ? 'Empty' : $u['gender']; ?></td>
                                 <td class="py-3 px-6">
                                     <div class="flex gap-4">
-                                        <a class="bg-blue-500 text-white py-1 px-2 rounded-md border-2 border-blue-500 hover:bg-transparent transition-all duration-150" href="/dashboard/users/<?= $user['id_user']; ?>">Detail</a>
+                                        <a class="bg-blue-500 text-white py-1 px-2 rounded-md border-2 border-blue-500 hover:bg-transparent transition-all duration-150" href="/dashboard/users/<?= $u['id_user']; ?>">Detail</a>
                                     </div>
                                 </td>
                             </tr>

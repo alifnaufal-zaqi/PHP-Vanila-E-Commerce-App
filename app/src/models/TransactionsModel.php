@@ -25,6 +25,14 @@ class TransactionsModel{
         return $stmt->fetch(PDO::FETCH_ASSOC);
     }
 
+    public function getRenevue(){
+        $sql = "SELECT SUM(total_amount) AS renevue FROM transactions";
+        $stmt = $this->conn->prepare($sql);
+        $stmt->execute();
+
+        return $stmt->fetch(PDO::FETCH_ASSOC);
+    }
+
     public function getAllTransactions($limit, $offset){
         $sql = "SELECT transactions.id_transaction, 
                 users.username, 

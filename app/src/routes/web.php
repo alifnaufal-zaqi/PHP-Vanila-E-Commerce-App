@@ -1,5 +1,6 @@
 <?php
 use App\controllers\DashboardController;
+use App\controllers\HomeController;
 use App\controllers\UserController;
 use App\controllers\LandingController;
 require_once __DIR__ . '/../db/database.php';
@@ -7,6 +8,7 @@ require_once __DIR__ . '/../db/database.php';
 $userController = new UserController($pdo);
 $landingController = new LandingController($pdo);
 $dashboardController = new DashboardController($pdo);
+$homeController = new HomeController($pdo);
 
 $requestUri = parse_url($_SERVER['REQUEST_URI'], PHP_URL_PATH);
 $baseUri = '/e-commerce/app/public';
@@ -79,6 +81,12 @@ switch($path){
     case (preg_match('/\/dashboard\/users\/([a-zA-Z0-9\-]+)/', $path, $matches) ? true : false):
         $idUser = $matches[1];
         $dashboardController->userDetail($idUser);
+        break;
+    case '/logout':
+        $dashboardController->logout();
+        break;
+    case '/home':
+        $homeController->index();
         break;
 }
 

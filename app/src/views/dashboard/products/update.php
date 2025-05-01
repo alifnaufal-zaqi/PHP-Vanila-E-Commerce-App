@@ -22,13 +22,7 @@ checkRole();
             <?php include(__DIR__ . '/../../components/sidebar.php'); ?>
         </section>
         <section class="grow h-full">
-            <nav class="bg-white shadow-md px-16 py-4 flex justify-between items-center">
-                <h1 class="text-xl font-bold">Dashboard</h1>
-                <div class="flex gap-5 items-center">
-                    <p class="text-lg font-semibold">John Doe</p>
-                    <img class="w-14" src="/assets/img/male-avatar.svg" alt="">
-                </div>
-            </nav>
+            <?php include(__DIR__ . '/../../components/dashboard_nav.php') ?>
             <section class="px-6 py-8">
                 <div class="shadow-md rounded-md p-5">
                     <div>

@@ -7,8 +7,7 @@
             <li><a href="/dashboard/transactions">Transactions</a></li>
             <li><a href="/dashboard/users">Users</a></li>
             <li>
-                <form action="" method="POST">
-                    <input type="hidden" name="logout">
+                <form action="/logout" method="POST">
                     <button class="cursor-pointer" type="submit">Logout</button>
                 </form>
             </li>
