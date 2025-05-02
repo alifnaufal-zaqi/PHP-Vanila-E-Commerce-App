@@ -22,5 +22,11 @@ class HomeController{
 
         include(__DIR__ . '/../views/home/products/index.php');
     }
+
+    public function detailProduct($idProduct){
+        $product = $this->productModel->getDetailProduct($idProduct);
+
+        include(__DIR__ . '/../views/home/products/detail.php');
+    }
 }
 ?>

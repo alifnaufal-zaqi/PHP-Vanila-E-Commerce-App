@@ -88,6 +88,10 @@ switch($path){
     case '/home':
         $homeController->index();
         break;
+    case (preg_match('/\/home\/([a-zA-Z0-9\-]+)/', $path, $matches) ? true : false):
+        $idProduct = $matches[1];
+        $homeController->detailProduct($idProduct);
+        break;
 }
 
 ?>

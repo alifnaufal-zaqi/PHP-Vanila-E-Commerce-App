@@ -22,6 +22,17 @@ class ProductsModel extends Model{
             ->execute();
     }
 
+    public function getDetailProduct($idProduct){
+        $data = $this->builder
+                    ->select('products.id_product, categorys.category_name, products.product_name, products.product_description, products.products_price, products.product_image')
+                    ->from('products')
+                    ->join('categorys', 'products.product_category = categorys.id_category')
+                    ->where('id_product = ?')
+                    ->find([$idProduct]);
+
+        return $data;
+    }
+
     public function getProductById($idProduct){
         $data = $this->builder
                     ->select()
