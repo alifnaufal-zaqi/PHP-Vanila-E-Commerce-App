@@ -22,7 +22,7 @@ authMiddleware();
                     <input type="text" name="product-name" class="border-2 px-6 py-2 rounded-md" placeholder="Serach Product">
                     <button type="submit" class="py-2 px-6 text-lg hover:cursor-pointer bg-darkB text-white rounded-md"><i class="bi bi-search"></i></button>
                 </form>
-                <img src="/assets/img/male-avatar.svg" class="w-14 hover:cursor-pointer" alt="">
+                <img src="/assets/img/male-avatar.svg" class="w-14 hover:cursor-pointer" alt="profile-image" id="profile-widget">
             </div>
         </nav>
     </header>
@@ -33,7 +33,7 @@ authMiddleware();
                 <div class="shadow-md rounded-md flex flex-col justify-between">
                     <!-- Card Header -->
                      <div class="w-full">
-                        <img class="h-96 object-cover rounded-md" src="<?= $product['product_image'] ?>" alt="">
+                        <img class="h-96 object-cover rounded-t-md" src="<?= $product['product_image'] ?>" alt="product-image">
                      </div>
                      <!-- Card Body -->
                       <div class="p-3">
@@ -49,5 +49,13 @@ authMiddleware();
             <?php endforeach; ?>
         </section>
     </main>
+
+    <script>
+        const profileImageWidget = document.getElementById('profile-widget');
+
+        profileImageWidget.addEventListener('click', () => {
+            window.location.href = '/home/profile';
+        })
+    </script>
 </body>
 </html>

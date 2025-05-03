@@ -1,8 +1,10 @@
 <?php
+
 use App\controllers\DashboardController;
 use App\controllers\HomeController;
 use App\controllers\UserController;
 use App\controllers\LandingController;
+
 require_once __DIR__ . '/../db/database.php';
 
 $userController = new UserController($pdo);
@@ -14,21 +16,21 @@ $requestUri = parse_url($_SERVER['REQUEST_URI'], PHP_URL_PATH);
 $baseUri = '/e-commerce/app/public';
 $path = trim(str_replace($baseUri, '', $requestUri));
 
-switch($path){
+switch ($path) {
     case '/':
         $landingController->index();
         break;
     case '/auth/register':
-        if($_SERVER['REQUEST_METHOD'] === 'POST'){
+        if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             $userController->storeUser();
-        }else{
+        } else {
             $userController->register();
         }
         break;
     case '/auth/login':
-        if($_SERVER['REQUEST_METHOD'] === 'POST'){
+        if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             $userController->verifyUserCredential();
-        }else{
+        } else {
             $userController->login();
         }
         break;
@@ -37,24 +39,24 @@ switch($path){
         break;
     case '/dashboard/products':
         $keyword = $_GET['keyword'] ?? null;
-        if($keyword){
+        if ($keyword) {
             $dashboardController->searchingProduct($keyword);
-        }else{
+        } else {
             $dashboardController->products();
         }
         break;
     case '/dashboard/products/create':
-        if($_SERVER['REQUEST_METHOD'] === 'POST'){
+        if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             $dashboardController->saveProduct();
-        }else{
+        } else {
             $dashboardController->createProduct();
         }
         break;
     case (preg_match('/\/dashboard\/products\/delete\/([a-zA-Z0-9\-]+)/', $path, $matches) ? true : false):
-        if($_SERVER['REQUEST_METHOD'] === 'POST'){
+        if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             $idProduct = $matches[1];
             $dashboardController->deleteProduct($idProduct);
-        }else{
+        } else {
             header('Location: /dashboard/products');
             exit;
         }
@@ -62,9 +64,9 @@ switch($path){
     case (preg_match('/\/dashboard\/products\/update\/([a-zA-Z0-9\-]+)/', $path, $matches) ? true : false):
         $idProduct = $matches[1];
 
-        if($_SERVER['REQUEST_METHOD'] === 'POST'){
+        if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             $dashboardController->modifyProduct($idProduct);
-        }else{
+        } else {
             $dashboardController->updateProduct($idProduct);
         }
         break;
@@ -88,10 +90,11 @@ switch($path){
     case '/home':
         $homeController->index();
         break;
+    case '/home/profile':
+        $homeController->profileUser();
+        break;
     case (preg_match('/\/home\/([a-zA-Z0-9\-]+)/', $path, $matches) ? true : false):
         $idProduct = $matches[1];
         $homeController->detailProduct($idProduct);
         break;
 }
-
-?>

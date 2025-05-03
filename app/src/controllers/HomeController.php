@@ -1,13 +1,25 @@
 <?php
 namespace App\controllers;
 use App\models\ProductsModel;
+use App\models\UserModel;
 use PDO;
 
 class HomeController{
     protected $productModel;
+    protected $userModel;
 
     public function __construct(PDO $pdo){
         $this->productModel = new ProductsModel($pdo);
+        $this->userModel = new UserModel($pdo);
+    }
+
+    public function profileUser(){
+        session_start();
+
+        $idUser = $_SESSION['user']['id_user'];
+        $user = $this->userModel->getUserLogged($idUser);
+
+        include(__DIR__ . '/../views/home/profile/index.php');
     }
 
     public function index(){

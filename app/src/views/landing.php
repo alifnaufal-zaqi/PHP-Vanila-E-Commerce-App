@@ -40,7 +40,7 @@
                     <div class="w-3/4 bg-slate-50 rounded-md h-full mx-auto flex flex-col justify-between">
                         <!-- Card Header -->
                         <div class="w-full h-96 overflow-hidden">
-                            <img src="<?= $product['product_image']; ?>" class="w-full h-full object-cover object-center" alt="">
+                            <img src="<?= $product['product_image']; ?>" class="w-full h-full object-cover object-center rounded-t-md" alt="">
                         </div>
                         <!-- Card Body -->
                         <div class="p-4 flex flex-col">
