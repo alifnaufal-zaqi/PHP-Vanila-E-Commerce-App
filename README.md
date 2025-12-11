@@ -1,7 +1,7 @@
 # PHP-Vanila-E-Commerce-App 🛍️
 
 ## Deskripsi  
-PHP-Vanila-E-Commerce-App adalah aplikasi toko online sederhana yang dibangun dengan PHP (native / vanilla PHP), HTML/CSS/JavaScript, dan MySQL sebagai database. Aplikasi ini cocok sebagai prototype sistem e-commerce, toko online kecil, atau sebagai proyek belajar CRUD, autentikasi, dan manajemen produk/pesanan tanpa framework besar.
+PHP-Vanila-E-Commerce-App adalah aplikasi toko online sederhana yang dibangun dengan PHP (native / vanilla PHP), HTML/CSS/JavaScript, dan PostgreSQL sebagai database. Aplikasi ini cocok sebagai prototype sistem e-commerce, toko online kecil, atau sebagai proyek belajar CRUD, autentikasi, dan manajemen produk/pesanan tanpa framework besar.
 
 ## Fitur Utama *(asumsi berdasarkan struktur — silakan sesuaikan jika berbeda)*  
 - 📦 Manajemen Produk — daftar produk, detail produk, kategori (jika ada)   
